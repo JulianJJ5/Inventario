@@ -1,0 +1,255 @@
+<script setup>
+import {ref} from "vue"
+
+
+const picked = ref('')
+
+//1. V-on:
+//La directiva v-on se utiliza para adjuntar escuchadores de eventos a elementos del DOM en Vue.js. Permite reaccionar a eventos del usuario, como clics, pulsaciones de teclas, entre otros.-->
+
+//Cambio de color al hacer clic:
+new Vue({
+  el: '#app',
+  data: {
+    color: 'blue'
+  },
+  methods: {
+    changeColor: function() {
+      this.color = 'red';
+    }
+  }
+})
+
+//Mostrar mensaje en consola al pasar el mouse:
+new Vue({
+  el: '#app',
+  methods: {
+    showMessage: function() {
+      console.log('¡Pasaste el ratón por encima!');
+    }
+  }
+})
+
+//Enviar formulario al presionar Enter:
+new Vue({
+  el: '#app',
+  methods: {
+    submitForm: function() {
+      console.log('Formulario enviado');
+    }
+  }
+});
+
+
+
+
+// 2. V-text:
+//La directiva v-text se utiliza para actualizar el contenido del elemento con el valor de una expresión de datos en Vue.js.
+
+// Mostrar un mensaje dinámico:
+<p v-text="message"></p>
+
+new Vue({
+  el: '#app',
+  data: {
+    message: '¡Hola Mundo!'
+  }
+})
+
+//Mostrar resultado de una operación matemática:
+new Vue({
+  el: '#app',
+  data: {
+    num1: 5,
+    num2: 3
+  },
+  computed: {
+    sum: function() {
+      return this.num1 + this.num2;
+    }
+  }
+})
+
+
+// Mostrar texto condicionalmente:
+new Vue({
+  el: '#app',
+  data: {
+    isLogged: true
+  }
+});
+
+
+
+
+// 3. V-bind:
+// Cambiar la URL de una imagen dinámicamente:
+new Vue({
+  el: '#app',
+  data: {
+    imageUrl: 'https://ejemplo.com/imagen1.jpg'
+  },
+  methods: {
+    changeImage: function() {
+      this.imageUrl = 'https://ejemplo.com/imagen2.jpg';
+    }
+  }
+});
+
+//Cambiar el estilo de un elemento dinámicamente:
+new Vue({
+  el: '#app',
+  data: {
+    textColor: 'blue',
+    bgColor: 'yellow'
+  }
+});
+
+// Enlazar atributos de formulario dinámicamente:
+new Vue({
+  el: '#app',
+  data: {
+    inputValue: ''
+  }
+})
+
+
+
+
+// 4. V-for:
+// Renderizar una lista de elementos:
+new Vue({
+  el: '#app',
+  data: {
+    items: ['Manzana', 'Plátano', 'Naranja']
+  }
+});
+
+// Renderizar una lista de objetos con propiedades:
+new Vue({
+  el: '#app',
+  data: {
+    items: [
+      { name: 'Camisa', price: '$20' },
+      { name: 'Pantalón', price: '$30' },
+      { name: 'Zapatos', price: '$50' }
+    ]
+  }
+});
+
+//Renderizar una lista de números con índices:
+new Vue({
+  el: '#app',
+  data: {
+    numbers: [1, 2, 3, 4, 5]
+  }
+})
+
+</script>
+
+
+
+<template>
+
+<!-- 1. V-on:
+Descripción: La directiva v-on se utiliza para adjuntar escuchadores de eventos a elementos del DOM en Vue.js. Permite reaccionar a eventos del usuario, como clics, pulsaciones de teclas, entre otros.-->
+
+<!-- Cambio de color al hacer clic: -->
+<div v-on:click="changeColor" :style="{ backgroundColor: color }">Haz clic aquí</div>
+
+<!-- Explicación: Al hacer clic en el elemento <div>, se llama al método changeColor que cambia el color de fondo a rojo.
+Mostrar mensaje en consola al pasar el mouse: -->
+
+<button v-on:mouseover="showMessage">Pasa el ratón aquí</button>
+
+
+<!-- Explicación: Cuando el mouse pasa sobre el botón, se activa el evento mouseover, que llama al método showMessage, mostrando un mensaje en la consola.
+Enviar formulario al presionar Enter: -->
+<input type="text" v-on:keyup.enter="submitForm">
+
+<!-- Explicación: Al presionar la tecla "Enter" en el campo de entrada, se llama al método submitForm, lo que indica que el formulario se envió. -->
+
+
+
+
+<!-- 2. V-text:
+Descripción: La directiva v-text se utiliza para actualizar el contenido del elemento con el valor de una expresión de datos en Vue.js.
+
+Mostrar un mensaje dinámico: -->
+
+<p v-text="message"></p>
+
+<!-- Explicación: La directiva v-text actualiza el contenido del párrafo con el valor de la propiedad message del objeto Vue.
+
+Mostrar resultado de una operación matemática: -->
+
+<p v-text="num1 + ' + ' + num2 + ' = ' + sum"></p>
+
+
+<!-- Explicación: La directiva v-text muestra el resultado de la suma de los números num1 y num2.
+Mostrar texto condicionalmente: -->
+
+<p v-text="isLogged ? 'Bienvenido' : 'Por favor, inicia sesión'"></p>
+
+<!-- Explicación: La directiva v-text muestra un mensaje de bienvenida si isLogged es verdadero, de lo contrario muestra un mensaje para iniciar sesión.
+
+
+
+
+
+
+
+3. V-bind:
+Descripción: La directiva v-bind se utiliza para enlazar dinámicamente un atributo HTML a una expresión de datos en Vue.js. -->
+
+<!-- Cambiar la URL de una imagen dinámicamente: -->
+<img v-bind:src="imageUrl">
+<!-- Explicación: La directiva v-bind actualiza dinámicamente la URL de la imagen cuando se llama al método changeImage.
+
+Cambiar el estilo de un elemento dinámicamente: -->
+<div v-bind:style="{ color: textColor, backgroundColor: bgColor }">Texto con estilo</div>
+<!-- Explicación: La directiva v-bind actualiza dinámicamente el color del texto y el fondo del <div> con los valores de textColor y bgColor.
+
+Enlazar atributos de formulario dinámicamente: -->
+<input type="text" v-bind:value="inputValue">
+<!-- Explicación: La directiva v-bind enlaza dinámicamente el valor del campo de entrada con la propiedad inputValue, permitiendo que se actualice conforme el usuario escribe.
+
+
+
+
+
+4. V-for:
+Descripción: La directiva v-for se utiliza para renderizar una lista de elementos basada en una matriz o un objeto en Vue.js.
+
+Renderizar una lista de elementos: -->
+<ul>
+  <li v-for="(item, index) in items" :key="index" v-text="item"></li>
+</ul>
+
+<!-- Explicación: La directiva v-for renderiza una lista de elementos <li> con el contenido de cada elemento en la matriz items.
+
+
+Renderizar una lista de objetos con propiedades: -->
+<ul>
+  <li v-for="item in items" :key="item.id">
+    <p v-text="item.name"></p>
+    <p v-text="'Precio: ' + item.price"></p>
+  </li>
+</ul>
+
+<!-- Explicación: La directiva v-for renderiza una lista de elementos <li> con el nombre y el precio de cada objeto en la matriz items. -->
+
+<!-- Renderizar una lista de números con índices: -->
+<template>
+<ul>
+  <li v-for="(number, index) in numbers" :key="index" v-text="'Número ' + number + ', Índice ' + index"></li>
+</ul>
+<!-- Explicación: La directiva v-for renderiza una lista de elementos <li> con cada número en la matriz numbers y su índice correspondiente. -->
+
+</template>
+
+
+
+<style scoped>
+
+</style>

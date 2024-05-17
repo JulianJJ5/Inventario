@@ -1,0 +1,84 @@
+<template>
+<div id="all">
+  <div id="almost_all">
+    <div>
+    <input type="text" v-model.number="numero1" class="caja"> <br> <br>
+    <input type="text" v-model.number="numero2" class="caja"> 
+  </div>
+  <div>
+    <input type="radio" name="a" id="sumar" class="oper" @click="sumar()"> 
+    <label for="sumar">Sumar</label><br>
+
+    <input type="radio" name="a" id="restar" class="oper" @click="restar()"> 
+    <label for="restar">Restar</label> <br>
+
+    <input type="radio" name="a" id="multiplicar" class="oper" @click="multiplicar()"> 
+    <label for="multiplicar">Multiplicar</label><br>
+
+    <input type="radio" name="a" id="dividir" class="oper" @click="dividir()"> 
+    <label for="dividir">Dividir</label><br>
+</div>
+</div>
+    <h1>{{resultado}}</h1>
+  
+  </div>
+</template>
+
+
+
+<script setup>
+import {ref} from "vue"
+let numero1 = ref()
+let numero2 = ref()
+let resultado = ref(0)
+
+
+let sumar = () => {
+  resultado.value = numero1.value + numero2.value
+}
+
+let restar = () => {
+  resultado.value = numero1.value - numero2.value
+}
+
+let multiplicar =() =>{
+  resultado.value = numero1.value * numero2.value
+}
+
+let dividir = () => {
+  resultado.value = numero1.value / numero2.value;
+
+  if(numero2.value == 0){
+    resultado.value = "No se puede dividir por 0"
+  }
+}
+</script>
+
+
+
+<style>
+#all{
+  background-color: gray;
+  width: 40%;
+}
+
+.caja{
+  width: 200px;
+  height: 30px;
+  font-size: 120%;
+  border: 4px solid black;
+  border-radius: 10px;
+}
+
+
+label{
+  font-size: 130%;
+}
+
+#almost_all{
+  display: flex;
+  gap: 7%;
+}
+
+
+</style>

@@ -1,0 +1,126 @@
+<template>
+<div>
+  <h1>Formulario de registro de datos para inventario</h1>
+    <label for="Nombre">Ingrese el nombre del producto: </label>
+    <input type="text" placeholder="Nombre" v-model="Nombre" id="Nombre"><br><br>
+    
+    <label for="Precio">Digite el precio: </label>
+    <input type="number" placeholder="Precio" id="Precio" v-model="Precio"><br><br>
+
+    <label for="Costo">Digite el costo: </label>
+    <input type="number" placeholder="Costo" v-model="Costo"><br><br>
+
+    <label for="Proveedor">Digite el nombre del proveedor: </label>
+    <input type="text" id="Proveedor" placeholder="Proveedor" v-model="Proveedor"><br><br>
+    
+    <button @click="Guardar(), Limpiar()">Agregar</button><br>
+    <!-- <ol>
+      <li v-for="(item, i) in data" :key="i">{{item.nombre  }} - {{ item.apellido }}</li>
+    </ol> -->
+
+      <h1>Grilla de datos</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Precio</th>
+          <th>Costo</th>
+          <th>Cantidad</th>
+          <th>Proveedor</th>
+          <th>Opciones</th>
+          <th>Ganancia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, i) in BaseDeDatos" :key="i">
+          <td> {{ item.Nombre }}</td>
+          <td>{{ item.Precio }}</td>
+          <td>{{ item.Costo }}</td>
+          <td>{{ item.Cantidad }}</td>
+          <td>{{ item.Proveedor }}</td>
+          <td>
+            <button @click="Sumar(item)">➕</button>
+            <button @click="Restar(item)">➖</button>
+            
+          </td>
+          <td>{{ item.Ganancias }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+      <h2>Costo total del inventario: {{CostoTotalInventario}}</h2>
+      <h2>Precio total del inventario: {{PrecioTotalInventario}}</h2>
+      <h2>Ganancia total: {{GananciaTotal}}</h2>
+  </div>
+</template>
+
+
+
+<script setup>
+import {ref} from "vue"
+
+let Nombre= ref("")
+let Precio = ref()
+let Costo = ref()
+let Cantidad = 1
+let Proveedor =ref("")
+let Ganancias = ref(0)
+let CostoTotalInventario = Costo.value * Cantidad;
+let PrecioTotalInventario = Precio.value * Cantidad;
+let GananciaTotal = PrecioTotalInventario - CostoTotalInventario
+
+console.log(parseInt(CostoTotalInventario));
+
+let BaseDeDatos = ref([])
+function Guardar(){
+  
+  let Datos = {
+    Nombre:Nombre.value,
+    Precio:Precio.value,
+    Costo:Costo.value,
+    Cantidad: Cantidad,
+    Proveedor: Proveedor.value,
+    Ganancias: Precio.value - Costo.value
+  }
+
+  BaseDeDatos.value.push(Datos)
+  console.log(BaseDeDatos);
+}
+
+function Limpiar(){
+    Nombre.value = "",
+    Precio.value = "",
+    Costo.value = "",
+    Proveedor.value = ""
+  }
+
+function Sumar(item){
+item.Cantidad += 1
+}
+
+function Restar(item){
+item.Cantidad -= 1
+if (item.Cantidad < 1){
+  BaseDeDatos.value.splice(item, 1)
+}
+}
+
+
+BaseDeDatos.value.forEach(function(item, i){
+  console.log(item);
+  console.log(i)
+})
+</script>
+
+
+
+<style>
+th{
+border: 3px solid rgb(17, 0, 255);
+}
+
+td{
+border: 3px solid black;
+}
+
+</style>
